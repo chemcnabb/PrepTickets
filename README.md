@@ -1,4 +1,4 @@
 PrepTickets
 ===========
 
-The full PrepTickets UX
+The full PrepTickets UI
