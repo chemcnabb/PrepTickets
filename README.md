@@ -12,7 +12,11 @@ The full PrepTickets UI
   * [Node.js](http://nodejs.org/) and [npm](https://npmjs.org/)
   * [Bower](http://bower.io/)
 
-    Install: `npm install -g bower`
+    `npm install -g bower`
+
+  * [Less](http://lesscss.org/)
+
+    Install: `npm install -g less`
 
   * [CoffeeScript](http://coffeescript.org/)
 
@@ -34,8 +38,16 @@ You can tell a file has been compiled by CoffeeScript by the first line saying:
 
 ### Compile CoffeeScript
 
-To compile coffee script, simple run this command (from the `/apps` directory): 
+To compile CoffeeScript to JavaScript, simple run this command (from the `/apps` directory): 
 
 ```
   coffee -o js/ -cw coffee/
+```
+
+### Compile Less
+
+To compile Less to CSS, simply run this command (from the `/apps` directory):
+
+```
+  lessc less/app.less css/app.css  --strict-math=on
 ```
