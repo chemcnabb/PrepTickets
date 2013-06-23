@@ -9,10 +9,13 @@ The full PrepTickets UI
 ## Setup
 
 ### Requirements
-  * (Node.js)[http://nodejs.org/]
-  * (Bower)[http://bower.io/]
+  * [Node.js](http://nodejs.org/)
+  * [Bower](http://bower.io/)
+
     Install: `npm install -g bower`
-  * (CoffeeScript)[http://coffeescript.org/]
+
+  * [CoffeeScript](http://coffeescript.org/)
+  
     Install: `npm install -g coffee-script`
 
 ### Things to lookout for
