@@ -9,17 +9,18 @@ The full PrepTickets UI
 ## Setup
 
 ### Requirements
-  * [Node.js](http://nodejs.org/)
+  * [Node.js](http://nodejs.org/) and [npm](https://npmjs.org/)
   * [Bower](http://bower.io/)
 
     Install: `npm install -g bower`
 
   * [CoffeeScript](http://coffeescript.org/)
-  
+
     Install: `npm install -g coffee-script`
 
 ### Things to lookout for
 **NEVER EDIT COMPILED JAVASCRIPT FILES**
+
 CoffeeScript compiles to JS, but it will overwrite any changes done to the compiled JS.
 You can tell a file has been compiled by CoffeeScript by the first line saying: 
 
