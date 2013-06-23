@@ -43,7 +43,7 @@ To view the project, run this command (from the `/apps` directory):
   ../scripts/web-server.js
 ```
 
-Then you can visit the project at [http://localhost:8000/index.html]
+Then you can visit the project at (http://localhost:8000/index.html)
 
 
 ### Compile CoffeeScript
@@ -64,7 +64,7 @@ To compile Less to CSS, simply run this command (from the `/apps` directory):
 
 ## Testing
 
-The following has been taken from (AngularJS docs)[https://github.com/angular/angular-seed]
+The following has been taken from [AngularJS docs](https://github.com/angular/angular-seed)
 
 ### Running unit tests
 
