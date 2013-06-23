@@ -1,0 +1,9 @@
+{
+  "name": "angular-seed",
+  "version": "0.0.0",
+  "commit": "c7ea21dd35fdd43439843eb7860e0cf243e92f0a",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/angular/angular-seed.git"
+  }
+}
