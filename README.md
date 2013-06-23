@@ -43,7 +43,7 @@ To view the project, run this command (from the `/apps` directory):
   ../scripts/web-server.js
 ```
 
-Then you can visit the project at (http://localhost:8000/index.html)
+Then you can visit the project at [http://localhost:8000/index.html](http://localhost:8000/index.html)
 
 
 ### Compile CoffeeScript
