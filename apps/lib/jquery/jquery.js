@@ -8841,4 +8841,4 @@ if ( typeof window === "object" && typeof window.document === "object" ) {
 
 })( window );
 
-if (!BWL) { var BWL = {}; BWL.Plugins = {}; } BWL.$ = BWL.jQuery = jQuery.noConflict(true);
+if (!BWL) { var BWL = {}; BWL.Plugins = {}; } BWL.$ = BWL.jQuery = window.jQuery = jQuery.noConflict(true);
