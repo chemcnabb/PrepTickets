@@ -1,23 +1,16 @@
-require 'sprockets'
-require 'coffee_script'
-require "sprockets-less"
-require "less"
+#\ -p 8000
+
+require './lib/sprockets_builder'
 
 Bundler.require
 
-project_root = File.expand_path(File.dirname(__FILE__)) + "/apps"
+ROOT = File.expand_path(File.dirname(__FILE__)) + "/apps"
 
-assets = Sprockets::Environment.new(project_root) do |env|
-  env.logger = Logger.new(STDOUT)
-end
- 
-assets.append_path(File.join(project_root, 'js'))
-assets.append_path(File.join(project_root, 'css'))
-assets.append_path(File.join(project_root, 'lib'))
-Dir["#{project_root}/lib/*/"].map do |a|
-  # assets.logger.debug a.sub(/(\/)+$/,'')
-  assets.append_path a.sub(/(\/)+$/,'')
-end
+assets = SprocketsBuilder.new(ROOT).assets
+
+###
+# TODO: Get access to list of files loaded for an asset by going assets['app.js'].to_a (pop last item because it will be app.js)
+###
  
 map "/assets" do
   run assets
@@ -31,7 +24,7 @@ map "/" do
         'Content-Type'  => 'text/html', 
         'Cache-Control' => 'public, max-age=86400' 
       },
-      File.open(File.join(project_root, 'index.html'), File::RDONLY)
+      File.open(File.join(ROOT, 'index.html'), File::RDONLY)
     ]
   }
 end
