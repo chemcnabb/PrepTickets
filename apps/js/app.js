@@ -4,7 +4,13 @@
 //= require jquery
 //= require jquery.validate
 //= require ui/jquery-ui
+//= require easyXDM
+//= require json2
+//= require md5
 //= require BWL/extensions
+//= require BWL/data
+//= require BWL/data.access
+//= require BWL/common
 //= require BWL/models
 //= require BWL/models.enums
 //= require BWL/models.meta
