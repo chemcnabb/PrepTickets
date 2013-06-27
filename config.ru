@@ -3,6 +3,8 @@ require 'coffee_script'
 require "sprockets-less"
 require "less"
 
+Bundler.require
+
 project_root = File.expand_path(File.dirname(__FILE__)) + "/apps"
 
 assets = Sprockets::Environment.new(project_root) do |env|
