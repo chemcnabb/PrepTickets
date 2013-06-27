@@ -22,6 +22,9 @@ The full PrepTickets UI
 
     Install: `npm install -g coffee-script`
 
+  * [Ruby](http://www.ruby-lang.org/en/)
+  * [Bundler Gem](http://gembundler.com/)
+
 ### Things to lookout for
 **NEVER EDIT COMPILED JAVASCRIPT FILES**
 
@@ -35,12 +38,22 @@ You can tell a file has been compiled by CoffeeScript by the first line saying:
 
 ## Programming
 
-### Running web server
+### Before starting
 
-To view the project, run this command (from the `/apps` directory):
+To improve ease of programming, we've used Ruby to speedup building. Before you can start programming, you need to make sure you have the required gems by running this command (in the root of the project):
 
 ```
-  ../scripts/web-server.js
+bundle install
+```
+
+This will go and download all the requirements (you might need to do this every time new code gets pulled)
+
+### Running web server
+
+To view the project in your browser, run this command (from the project directory):
+
+```
+  bundle exec rackup config.ru
 ```
 
 Then you can visit the project at [http://localhost:8000/index.html](http://localhost:8000/index.html)
@@ -48,19 +61,11 @@ Then you can visit the project at [http://localhost:8000/index.html](http://loca
 
 ### Compile CoffeeScript
 
-To compile CoffeeScript to JavaScript, simple run this command (from the `/apps` directory): 
-
-```
-  coffee -o js/ -cw coffee/
-```
+This will be done by sprockets (in ruby) via the web server
 
 ### Compile Less
 
-To compile Less to CSS, simply run this command (from the `/apps` directory):
-
-```
-  lessc less/app.less css/app.css  --strict-math=on
-```
+This will be done by sprockets (in ruby) via the web server
 
 ## Testing
 
@@ -97,3 +102,7 @@ info.
   * open `http://localhost:port/test/e2e/runner.html` in your browser
   * run the tests from console with [Karma](http://karma-runner.github.io) via
     `scripts/e2e-test.sh` or `script/e2e-test.bat`
+
+## Deploying
+
+TODO
