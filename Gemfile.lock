@@ -29,6 +29,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-script
+  execjs
   rack
   rake
   sprockets
