@@ -25,6 +25,8 @@ The full PrepTickets UI
   * [Ruby](http://www.ruby-lang.org/en/)
   * [Bundler Gem](http://gembundler.com/)
 
+    Install: `gem install bundler`
+
 ### Things to lookout for
 **NEVER EDIT COMPILED JAVASCRIPT FILES**
 
