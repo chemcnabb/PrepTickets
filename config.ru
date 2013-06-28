@@ -6,14 +6,14 @@ Bundler.require
 
 ROOT = File.expand_path(File.dirname(__FILE__)) + "/apps"
 
-assets = SprocketsBuilder.new(ROOT).assets
+sprockets = SprocketsBuilder.new(ROOT).sprockets
 
 ###
-# TODO: Get access to list of files loaded for an asset by going assets['app.js'].to_a (pop last item because it will be app.js)
+# TODO: Get access to list of files loaded for an asset by going sprockets['app.js'].to_a (pop last item because it will be app.js)
 ###
  
 map "/assets" do
-  run assets
+  run sprockets
 end
  
 map "/" do
