@@ -7,10 +7,10 @@ class SprocketsBuilder
     self.sprockets = Sprockets::Environment.new(root) do |env|
       env.logger = Logger.new(STDOUT)
     end
-     
-    sprockets.append_path(File.join(root, 'js'))
-    sprockets.append_path(File.join(root, 'css'))
-    sprockets.append_path(File.join(root, 'lib'))
+
+    sprockets.append_path(root.join('js'))
+    sprockets.append_path(root.join('css'))
+    sprockets.append_path(root.join('lib'))
     Dir["#{root}/lib/*/"].map do |a|
       # sprockets.logger.debug a.sub(/(\/)+$/,'')
       sprockets.append_path a.sub(/(\/)+$/,'')
