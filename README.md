@@ -111,5 +111,5 @@ It's very simple to build the application for production, simple run the fullyin
 bundle exec rake render
 ```
 
-This will take a few moments to compile the project and write it to the /build directory (in the root directory)
+This will take a few moments to compile the project and write it to the `/build` directory (in the root directory)
 The build directory will contain everything you need to run the app, just upload the contents of the build directory to a server and you're ready to go!
