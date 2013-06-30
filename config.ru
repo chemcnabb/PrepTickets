@@ -1,26 +1,16 @@
 #\ -p 8000
+require './lib/application'
 
-require './lib/sprockets_builder'
+app = Application.new(:development)
 
-Bundler.require
+use Rack::Reloader, 0
 
-ROOT = Pathname(File.dirname(__FILE__)).join('apps').realpath
-
-sprockets = SprocketsBuilder.new(ROOT).sprockets
- 
-map "/assets" do
-  run sprockets
+Application::ASSET_DIRS.each do |dir|
+  map "/#{dir}" do
+    run app.sprockets
+  end
 end
  
 map "/" do
-  run lambda { |env|
-    [
-      200, 
-      {
-        'Content-Type'  => 'text/html', 
-        'Cache-Control' => 'public, max-age=86400' 
-      },
-      File.open(File.join(ROOT, 'index.html'), File::RDONLY)
-    ]
-  }
+  run app.main_page
 end

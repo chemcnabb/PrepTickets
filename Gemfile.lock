@@ -5,6 +5,9 @@ GEM
       Platform (>= 0.4.0)
       open4
     Platform (0.4.0)
+    active_support (3.0.0)
+      activesupport (= 3.0.0)
+    activesupport (3.0.0)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -34,6 +37,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  active_support
   coffee-script
   rack
   rake
