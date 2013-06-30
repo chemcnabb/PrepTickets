@@ -14,10 +14,6 @@ The full PrepTickets UI
 
     `npm install -g bower`
 
-  * [Less](http://lesscss.org/)
-
-    Install: `npm install -g less`
-
   * [CoffeeScript](http://coffeescript.org/)
 
     Install: `npm install -g coffee-script`
@@ -48,24 +44,24 @@ To improve ease of programming, we've used Ruby to speedup building. Before you 
 bundle install
 ```
 
-This will go and download all the requirements (you might need to do this every time new code gets pulled)
+This will go and download all the requirements (you might need to do this every time new code gets pulled and the Gemfile or Gemfile.lock is changed)
 
 ### Running web server
 
 To view the project in your browser, run this command (from the project directory):
 
 ```
-  bundle exec rackup config.ru
+  bundle exec rackup
 ```
 
-Then you can visit the project at [http://localhost:8000/index.html](http://localhost:8000/index.html)
+Then you can visit the project at [http://localhost:8000/](http://localhost:8000/)
 
 
 ### Compile CoffeeScript
 
 This will be done by sprockets (in ruby) via the web server
 
-### Compile Less
+### Compile SCSS
 
 This will be done by sprockets (in ruby) via the web server
 
@@ -107,4 +103,13 @@ info.
 
 ## Deploying
 
-TODO
+### Rendering required files
+
+It's very simple to build the application for production, simple run the fullying command (in the root directory)
+
+```
+bundle exec rake render
+```
+
+This will take a few moments to compile the project and write it to the /build directory (in the root directory)
+The build directory will contain everything you need to run the app, just upload the contents of the build directory to a server and you're ready to go!
