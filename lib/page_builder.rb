@@ -12,30 +12,27 @@ class PageBuilder
     @page_path = page_path
   end
 
-  def assets_source name, options={}
+  def assets_sources name, options={}
     assets = app.sprockets.find_asset(name)
     return [] if assets.blank?
-    assets_source_list = []
-    main_asset = assets.to_a.pop
-    if app.development?
-      assets.to_a.each do |asset|
-        assets_source_list << get_asset_source(asset)
-      end
-    else
-      assets_source_list << get_asset_source(main_asset)
-    end
-    assets_source_list
+    extract_asset_sources_for assets
   end
 
   def stylesheet_link_tag name='app.css', options={}
-    sources = assets_source(name)
-    links = sources.map{ |s| stylesheet_tag(s, options)  }
+    sources = assets_sources(name)
+    links = sources.map do |s| 
+      s = "#{s}?body=1" if app.development?
+      stylesheet_tag(s, options)
+    end
     links.join("\n")
   end
 
   def javascript_link_tag name='app.js', options={}
-    sources = assets_source(name)
-    links = sources.map{ |s| javascript_tag(s, options)  }
+    sources = assets_sources(name)
+    links = sources.map do |s| 
+      s = "#{s}?body=1" if app.development?
+      javascript_tag(s, options)
+    end
     links.join("\n")
   end
 
@@ -59,6 +56,22 @@ class PageBuilder
   private
   #######
   
+  def extract_asset_sources_for(assets)
+    assets_source_list = []
+    if app.development?
+      assets.to_a.each do |asset|
+        if (asset.to_a.size > 1)
+          assets_source_list + extract_asset_sources(asset)
+        else
+          assets_source_list << get_asset_source(asset)
+        end
+      end
+    else
+      assets_source_list << get_asset_source(assets)
+    end
+    assets_source_list
+  end
+
   def get_asset_source(asset)
     return "" if asset.blank?
     pn = Pathname(asset.pathname)
