@@ -5,8 +5,8 @@ app = Application.new(:development)
 
 use Rack::Reloader, 0
 
-%w[/js /lib /css].each do |dir|
-  map dir do
+Application::ASSET_DIRS.each do |dir|
+  map "/#{dir}" do
     run app.sprockets
   end
 end

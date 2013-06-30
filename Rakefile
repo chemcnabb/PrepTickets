@@ -1,45 +1,68 @@
-require './lib/sprockets_builder'
+require './lib/application'
 
-Bundler.require
+namespace :render do
+  desc "[internal] Setup application"
+  task :setup do
+    @app = Application.new(:production)
 
-desc "Renders files for production"
-task :render do
-  # TODO: Finish this - Something similar to http://www.simonecarletti.com/blog/2011/09/using-sprockets-without-a-railsrack-project/
-  # Need to keep in mind an env variable
-  ROOT = Pathname(File.dirname(__FILE__)).realpath
-  
-  BUILD_DIR = ROOT.join("build")
-
-  FileUtils.rm_rf(BUILD_DIR) if File.exists?(BUILD_DIR)
-  Dir.mkdir(BUILD_DIR)
-  
-  sprockets = SprocketsBuilder.new(ROOT.join("apps")).sprockets
-  sprockets.css_compressor = :yui
-  sprockets.js_compressor = :uglifier
-
-  BUNDLES = %w( app.css app.js )
-
-  BUNDLES.each do |bundle|
-    assets = sprockets.find_asset(bundle)
-
-    prefix, basename = assets.pathname.to_s.split('/')[-2..-1]
-    FileUtils.mkpath BUILD_DIR.join(prefix)
-
-
-    realname = assets.pathname.basename.to_s.split(".")[0..1].join(".")
-    File.open("#{BUILD_DIR.join(prefix, realname)}", 'wb') do |f|
-      f.write assets.to_s
-    end
-
-    # assets.write_to(BUILD_DIR.join(prefix, basename))
-    # assets.to_a.each do |asset|
-    #   # strip filename.css.foo.bar.css multiple extensions
-    #   realname = asset.pathname.basename.to_s.split(".")[0..1].join(".")
-    #   asset.write_to(BUILD_DIR.join(prefix, realname))
-    # end
-
+    Dir.mkdir(@app.build_root) unless File.exists?(@app.build_root)
   end
 
+  desc "[internal] Clear build folder"
+  task :clear_build => :setup do
+    if File.exists?(@app.build_root)
+      @app.logger.info "Clearing Build Directory..."
+      FileUtils.rm_rf(@app.build_root) 
+    end
+  end
 
+  desc "Render asset files for production"
+  task :assets => :setup do
+    @app.logger.info "Building Assets..."
 
-end
+    Application::ROOT_ASSETS.each do |bundle|
+      assets = @app.sprockets.find_asset(bundle)
+
+      prefix, basename = assets.pathname.to_s.split('/')[-2..-1]
+      FileUtils.mkpath @app.build_root.join(prefix)
+
+      realname = assets.pathname.basename.to_s.split(".")[0..1].join(".")
+      File.open("#{@app.build_root.join(prefix, realname)}", 'wb') do |f|
+        f.write assets.to_s
+      end
+    end
+  end
+
+  desc "Render html files"
+  task :html => :setup do
+    @app.logger.info "Building html..."
+    pages = @app.root.entries.select{|i| i.basename.to_s =~ /(.+).html(.*)/ }
+    pages.each do |page|
+      case page.to_s
+      when /.html.erb$/
+        filename = page.basename.to_s.split(".")[0..1].join('.')
+        @app.logger.debug "  Rendering and Copying #{filename} to build folder"
+        page_builder = PageBuilder.new(@app, @app.root.join(page.basename))
+        File.open(@app.build_root.join(filename), 'wb') {|f| f.write(page_builder.render_to_string) }
+      else
+        @app.logger.debug "  Copying #{page.basename} to build folder"
+        FileUtils.cp(@app.root.join(page.basename), @app.build_root.join(page.basename))
+      end
+    end
+  end
+
+  desc "Copies the rest of the data in the app folder"
+  task :move_rest => :setup do
+    @app.logger.info "Moving rest of the files to build directory..."
+    @app.root.each_child do |i|
+      #only move dirs that aren't part of the rendered assets dirs
+      unless i.file? || Application::ASSET_DIRS.include?(i.basename.to_s) 
+        @app.logger.debug "  Moving #{i.basename}"
+        FileUtils.cp_r(@app.root.join(i), @app.build_root)
+      end
+    end
+  end
+end # of namespace
+
+desc "Render all files for production"
+task :render => ["render:clear_build", "render:assets", "render:html", "render:move_rest"]

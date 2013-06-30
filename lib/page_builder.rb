@@ -5,11 +5,11 @@ class PageBuilder
 
   include TagHelper
 
-  attr_accessor :app, :root, :page_name
-  def initialize(app, page_name="index.html.erb")
+  attr_accessor :app, :root, :page_path
+  def initialize(app, page_path)
     @app = app
     @root = app.root
-    @page_name = page_name
+    @page_path = page_path
   end
 
   def assets_source name, options={}
@@ -41,18 +41,17 @@ class PageBuilder
 
 
   def render_to_string
-    # File.open(File.join(@root, "#{page_name}.html"), File::RDONLY)
-    [ERB.new(File.read(@root.join(page_name))).result(binding)]
+    ERB.new(File.read(page_path)).result(binding)
   end
 
-  def call(env)
+  def call(env) #Rack calls this automagically
     [
       200,
       {
         'Content-Type'  => 'text/html',
         'Cache-Control' => 'public, max-age=86400'
       },
-      render_to_string
+      [render_to_string]
     ]
   end
 
