@@ -38,7 +38,7 @@ You can tell a file has been compiled by CoffeeScript by the first line saying:
 
 ### Before starting
 
-To improve ease of programming, we've used Ruby to speedup building. Before you can start programming, you need to make sure you have the required gems by running this command (in the root of the project):
+To improve ease of programming, we've used Ruby to speedup building. Before you can start programming, you need to make sure you have the required gems by running this command (in the `root` of the project):
 
 ```
 bundle install
@@ -48,14 +48,13 @@ This will go and download all the requirements (you might need to do this every 
 
 ### Running web server
 
-To view the project in your browser, run this command (from the project directory):
+To view the project in your browser, run this command (from the `root` directory):
 
 ```
   bundle exec rackup
 ```
 
 Then you can visit the project at [http://localhost:8000/](http://localhost:8000/)
-
 
 ### Compile CoffeeScript
 
@@ -64,6 +63,20 @@ This will be done by sprockets (in ruby) via the web server
 ### Compile SCSS
 
 This will be done by sprockets (in ruby) via the web server
+
+### Live Reload
+
+To speed up development and prevent the developer from hitting `reload` everytime s/he changes some code, we've implemented live reload [[readme](http://livereload.com/)]
+
+To get live-reload running, just start running guard (in the `root` directory):
+
+```
+bundle exec guard
+```
+
+Once guard is running, you will see that any time you save a file in the `/apps` directory, it will report a change and your browser (in the background) will reload.
+
+To exit guard, just type `exit` in the guard terminal window
 
 ## Testing
 

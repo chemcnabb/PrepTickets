@@ -12,3 +12,6 @@ gem 'rack'           #basic web server responder
 gem 'rake'           #Similar to 'make' on linux but for ruby
 
 gem 'active_support' #Adds a bunch of helpers to Ruby (comes from rails)
+
+gem 'rack-livereload'
+gem 'guard-livereload'
