@@ -1,4 +1,9 @@
+if (typeof BWL === "undefined" || BWL === null) {
+  throw "Can't use json2 plugin without BWL module loaded";
+}
+if (typeof BWL.Plugins === 'undefined') { BWL.Plugins = {}; }
 BWL.Plugins.json2 = {};
+
 (function () {
     "use strict";
     function f(n) {

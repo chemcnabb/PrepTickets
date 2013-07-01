@@ -8841,4 +8841,7 @@ if ( typeof window === "object" && typeof window.document === "object" ) {
 
 })( window );
 
-if (!BWL) { var BWL = {}; BWL.Plugins = {}; } BWL.$ = BWL.jQuery = window.jQuery = jQuery.noConflict(true);
+if (typeof BWL === "undefined" || BWL === null) {
+  throw "Can't use jQuery plugin without BWL module loaded";
+}
+BWL.$ = BWL.jQuery = window.jQuery = jQuery.noConflict(true);
