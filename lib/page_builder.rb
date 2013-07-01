@@ -74,10 +74,10 @@ class PageBuilder
 
   def get_asset_source(asset)
     return "" if asset.blank?
-    pn = Pathname(asset.pathname)
-    name = pn.basename.to_s.split(".", 3)[0, 2].join(".")
-    path = pn.relative_path_from(root).dirname
-    "#{path}/#{name}"
+    asset_attr = app.sprockets.attributes_for(asset.pathname.realpath)
+    name = asset_attr.logical_path.to_s
+    path = asset.pathname.relative_path_from(root).to_s.gsub(/#{name}(.*)/, "")
+    "/#{path}#{name}"
   end
 
 end
