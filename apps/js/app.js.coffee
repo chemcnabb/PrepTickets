@@ -1,4 +1,4 @@
-#= require BWL/bwl
+#= require BWL
 #= require angular
 #= require ui-bootstrap
 
