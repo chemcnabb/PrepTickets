@@ -3,6 +3,7 @@ module TagHelper
   end
   
   module InstanceMethods
+
     BOOLEAN_ATTRIBUTES = %w(disabled readonly multiple checked autobuffer
                          autoplay controls loop selected hidden scoped async
                          defer reversed ismap seemless muted required
@@ -40,13 +41,22 @@ module TagHelper
       end
     end
 
-    def content_tag(name, content_or_options_with_block = nil, options = nil, &block)
-      if block_given?
-        options = content_or_options_with_block if content_or_options_with_block.is_a?(Hash)
-        content_tag_string(name, capture(&block), options)
+    def content_tag(name, content_or_options_with_block = nil, options = nil)
+      content_tag_string(name, content_or_options_with_block, options)
+    end
+
+    def debug item
+      result = case item.class.to_s
+      when "String"
+        item
+      when "Hash"
+        item.map { |key,value| 
+          "#{key} = #{value}"
+        }.join('<br/>')
       else
-        content_tag_string(name, content_or_options_with_block, options)
+        "#{item.inspect}"
       end
+      content_tag(:pre, result)
     end
 
     #######

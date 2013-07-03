@@ -11,20 +11,7 @@ Application::ASSET_DIRS.each do |dir|
     run app.sprockets
   end
 end
-
-map "/locales/en/translation.json" do
-  run lambda { |env| 
-    [
-      200,
-      {
-        'Content-Type' => "application/json",
-      },
-      File.open(app.root.join('locales/en/translation.json'), File::RDONLY)
-    ]
-  }
-end
-
  
 map "/" do
-  run app.main_page
+  run app.page_builder
 end

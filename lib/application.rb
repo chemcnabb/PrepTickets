@@ -14,9 +14,12 @@ class Application
   extend Forwardable
 
   APP_DIR = "apps"
+  APP_PAGE = "index.html"
+  ERROR_PAGE = "error.html.erb"
   BUILD_DIR = "build"
   ROOT_ASSETS = %w( app.css app.js )
   ASSET_DIRS = %w( js css lib )
+  TEMPLATE_DIR = "#{APP_DIR}/templates"
 
   attr_accessor :env
 
@@ -41,9 +44,22 @@ class Application
     def logger
       @logger ||= Logger.new(STDOUT)
     end
+    def root_page
+      APP_PAGE
+    end
+    def error_page
+      ERROR_PAGE
+    end
   end # of class methods
   
-  def_delegators self, :root, :project_root, :build_root, :logger
+  def_delegators self, 
+                 :root, 
+                 :project_root, 
+                 :build_root, 
+                 :logger, 
+                 :root_page, 
+                 :error_page
+
   def root_assets
     self.class::ROOT_ASSETS
   end
@@ -51,7 +67,7 @@ class Application
   def sprockets
     @sprockets ||= SprocketsBuilder.new(self).sprockets
   end
-  def main_page
-    @page ||= PageBuilder.new(self, root.join("index.html.erb"))
+  def page_builder
+    @page ||= PageBuilder.new(self)
   end
 end
