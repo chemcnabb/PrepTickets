@@ -1,7 +1,5 @@
 @BWL = 
   #Global variables
-  storeKey: null
-
 
   # System vars
   API_URL: "http://stage.azuretickets.com"
