@@ -1,0 +1,13 @@
+{
+  "DataAccess": {
+    "Error": "Server Error: __msg__",
+    "401"  : "System has detected a problem with your session and was forced to reset it.",
+    "ServerMessage":{
+      "OK"   : "OK",
+      "401"  : "UNAUTHORIZED 401 SECURITY ERROR"
+    }
+  },
+  "Common": {
+    "Loading": "Please Wait..."
+  }
+}

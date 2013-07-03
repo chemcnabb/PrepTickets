@@ -1,1 +1,0 @@
-@prepTickets = angular.module('prepTickets', [])

@@ -1,3 +1,7 @@
+if (typeof BWL === "undefined" || BWL === null) {
+  throw "Can't use md5 plugin without BWL module loaded";
+}
+if (typeof BWL.Plugins === 'undefined') { BWL.Plugins = {}; }
 BWL.Plugins.MD5 = function (string) {
 
     function RotateLeft(lValue, iShiftBits) {
