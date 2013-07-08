@@ -15,5 +15,3 @@ gem 'active_support'   # Adds a bunch of helpers to Ruby (comes from rails)
 
 gem 'rack-livereload'  # live reload client
 gem 'guard-livereload' # live reload server
-
-gem 'wdm'
